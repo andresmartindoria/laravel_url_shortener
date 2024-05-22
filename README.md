@@ -11,10 +11,14 @@ php artisan serve
 Conectarse a la base de datos configurando el archivo .env
 
 Ejecutar la migracion de la base de datos, que crea 9 tablas por defecto para el sistema de laravel
-> php artisan migrate
+```sh
+php artisan migrate
+```
 
 Ejecutar el siguiente Comando para crear el model, controller y migration para el manejo de la url short
-> php artisan make:model -mrc Url
+```sh
+php artisan make:model -mrc Url
+```
 
 Edit the migration file.
 Open the folder database/migrations/<timestamp>_create_urls_table.php then edit like this, and after editing execute the migration with the command :php artisan migrate
@@ -35,8 +39,10 @@ Editar por
   });
 ```
 (En caso de no migrar los nuevos campos, se pueden ejucutar los siguientes comandos para que impacten los cambios, bajar la migracion y volver a subirla
-> php artisan migrate:reset
-> php artisan migrate
+```sh
+php artisan migrate:reset
+php artisan migrate
+```
 
 Edit File Models.
 Open the file model in the folder app/Models/Url.php y agregar las siguiente líneas
