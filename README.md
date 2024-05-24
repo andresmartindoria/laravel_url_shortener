@@ -44,20 +44,101 @@ php artisan migrate:reset
 php artisan migrate
 ```
 
-Edit File Models.
-Open the file model in the folder app/Models/Url.php y agregar las siguiente líneas
-```
+Editar Archivo Models.
+Abrir el archivo model de la carpeta app/Models/Url.php y agregar las siguiente líneas
+```sh
   protected $fillable = [
     'title', 'original_url', 'shortener_url'
   ];
 ```
 
-Add Routing for URL shortener feature.
-We will also need to create URLs for our controller. We can do this by adding “routes”, which are managed in the routes directory of your project.
-```
+Agregar función de enrutamiento para short de URL.
+También necesitaremos crear URL para nuestro controlador. Podemos hacer esto agregando “rutas”, que se administran en el directorio de rutas de su proyecto.
+```sh
 // route for get shortener url
 Route::get('{shortener_url}', [UrlController::class, 'shortenLink'])->name('shortener-url');
 ```
 
-Edit UrlController.php.
-Open the UrlController.php file in the app/Http/Controllers/UrlController.php folder, 7 main functions have been created in the controller, namely: index, create, store, edit, update, and destroy.
+Editar UrlController.php.
+Abrir el archivo UrlController.php en app/Http/Controllers/UrlController.php, 7 funciones principales fueron creadas en el controlador, namely: index, create, store, edit, update, and destroy.
+
+Pruebas en PHPUnit
+El comando para generar nuevas pruebas es:
+```sh
+php artisan make:test UrlTest
+```
+Esto crea un archivo en tests/Unit/UrlTest.php. Editarlo para configurar la prueba
+```sh
+use RefreshDatabase;
+/**
+ * A basic unit test example.
+ */
+public function test_create_url(): void
+{
+    $this->get('/urls')->assertStatus(200);
+
+    // Simulate a user creating a new post through the web interface
+    $response = $this->post('url.store', [
+        'title' => 'Primera URL',
+        'original_url' => 'https://spot2.mx/buscar'
+    ]);
+}
+```
+
+Para correr las pruebas ejecutar
+```sh
+php artisan test
+```
+
+Si todo está bien, deberian ver el siguiente resultado
+```sh
+PASS  Tests\Unit\UrlTest
+✓ create url
+```
+
+Crear para el frontend un nuevo proyecto con React
+```sh
+npx create-react-app my-project
+cd my-project
+```
+
+Agregar el framwork Tailwindcss para el manejo de estilos
+```sh
+npm install -D tailwindcss
+npx tailwindcss init
+```
+
+Configure your template paths
+Add the paths to all of your template files in your tailwind.config.js file.
+```sh
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+Add the Tailwind directives to your CSS
+Add the @tailwind directives for each of Tailwind’s layers to your ./src/index.css file.
+```sh
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+Ver el proyecto en el navegador
+```sh
+npm run start
+```
+
+Editar el Archivo App.js para agregar toda la funcionlidad que se conecta con el backend
+
+Los endpoints del backend, se encuentran bajo las url
+```sh
+http://127.0.0.1:8000/urls
+```
