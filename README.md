@@ -56,6 +56,7 @@ Agregar función de enrutamiento para short de URL.
 También necesitaremos crear URL para nuestro controlador. Podemos hacer esto agregando “rutas”, que se administran en el directorio de rutas de su proyecto.
 ```sh
 // route for get shortener url
+Route::resource('urls', UrlController::class);
 Route::get('{shortener_url}', [UrlController::class, 'shortenLink'])->name('shortener-url');
 ```
 
@@ -136,7 +137,7 @@ Ver el proyecto en el navegador
 npm run start
 ```
 
-Editar el Archivo App.js para agregar toda la funcionlidad que se conecta con el backend
+Editar el Archivo App.js para agregar toda la funcionalidad que se conecta con el backend, guarda nuevos registros y muestra los guardados
 
 Los endpoints del backend, se encuentran bajo las url
 ```sh
